@@ -82,7 +82,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Movara — Custom Logistics Software Development" },
-      { name: "description", content: "Custom software for logistics, freight, fleet and supply chain businesses." },
+      {
+        name: "description",
+        content: "Custom software for logistics, freight, fleet and supply chain businesses.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

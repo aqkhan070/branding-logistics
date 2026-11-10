@@ -11,12 +11,22 @@ export async function handleHelpChat(request: Request) {
     const body = await request.json();
     const messages = await validateUIMessages({ messages: body.messages });
     const modelMessages = await convertToModelMessages(messages);
-    const call = createResponsesCall(request, { baseURL: "https://ai.gateway.lovable.dev/v1", apiKey: key, model: "openai/gpt-6-astra" }, modelMessages, instructions);
+    const call = createResponsesCall(
+      request,
+      { baseURL: "https://ai.gateway.lovable.dev/v1", apiKey: key, model: "openai/gpt-6-astra" },
+      modelMessages,
+      instructions,
+    );
     const response = call.result.toUIMessageStreamResponse({
       originalMessages: messages,
       sendReasoning: true,
-      onFinish: () => { /* Single session: intentionally no transcript storage. */ },
-      onError: (error) => error instanceof Error ? error.message : "Live help could not respond. Please try again later.",
+      onFinish: () => {
+        /* Single session: intentionally no transcript storage. */
+      },
+      onError: (error) =>
+        error instanceof Error
+          ? error.message
+          : "Live help could not respond. Please try again later.",
     });
     await call.headersReady;
     const failure = call.getUpstreamFailure();
@@ -24,6 +34,9 @@ export async function handleHelpChat(request: Request) {
     return withLovableAiGatewayRunIdHeader(response, call.runIdFetch);
   } catch (error) {
     if (request.signal.aborted) return new Response(null, { status: 499 });
-    return Response.json({ message: error instanceof Error ? error.message : "Invalid conversation." }, { status: 400 });
+    return Response.json(
+      { message: error instanceof Error ? error.message : "Invalid conversation." },
+      { status: 400 },
+    );
   }
 }

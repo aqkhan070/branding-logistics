@@ -16,7 +16,9 @@ export function createResponsesCall(
   const runIdFetch = createLovableAiGatewayRunIdFetch(getLovableAiGatewayRunId(request));
   let upstreamFailure: { status: number; message: string } | undefined;
   let settleHeaders: () => void = () => {};
-  const headersReady = new Promise<void>((resolve) => { settleHeaders = resolve; });
+  const headersReady = new Promise<void>((resolve) => {
+    settleHeaders = resolve;
+  });
   const provider = createOpenAI({
     baseURL: `${config.baseURL.replace(/\/+$/, "").replace(/\/v1$/, "")}/v1`,
     apiKey: config.apiKey,
@@ -25,11 +27,22 @@ export function createResponsesCall(
       try {
         const response = await runIdFetch.fetch(input, init);
         if (!response.ok) {
-          const payload = await response.clone().json().catch(() => null);
-          upstreamFailure = { status: response.status, message: payload?.message ?? payload?.error?.message ?? `Live help is unavailable (${response.status}).` };
+          const payload = await response
+            .clone()
+            .json()
+            .catch(() => null);
+          upstreamFailure = {
+            status: response.status,
+            message:
+              payload?.message ??
+              payload?.error?.message ??
+              `Live help is unavailable (${response.status}).`,
+          };
         }
         return response;
-      } finally { settleHeaders(); }
+      } finally {
+        settleHeaders();
+      }
     },
   });
   const reasoning = config.model !== "openai/chat-latest";
@@ -60,6 +73,9 @@ export function createResponsesCall(
     headersReady,
     getUpstreamFailure: () => upstreamFailure,
     response: () =>
-      withLovableAiGatewayRunIdHeader(result.toUIMessageStreamResponse({ sendReasoning: true }), runIdFetch),
+      withLovableAiGatewayRunIdHeader(
+        result.toUIMessageStreamResponse({ sendReasoning: true }),
+        runIdFetch,
+      ),
   };
 }
