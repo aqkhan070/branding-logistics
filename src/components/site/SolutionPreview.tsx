@@ -54,7 +54,7 @@ function Row({ first, second, status }: { first: string; second: string; status:
 
 export function SolutionPreview({ variant }: { variant: number }) {
   return (
-    <div className="h-[194px] overflow-hidden rounded-lg border border-border bg-secondary/40 text-[10px] text-foreground shadow-sm">
+    <div className="h-[220px] overflow-hidden rounded-lg border border-border bg-secondary/40 text-[10px] text-foreground shadow-sm">
       <div className="flex h-8 items-center justify-between border-b border-border bg-primary px-3 text-primary-foreground">
         <span className="font-semibold">{headings[variant]}</span>
         <span className="text-[8px] opacity-70">SAMPLE</span>
