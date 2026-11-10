@@ -23,7 +23,7 @@ const steps = [
   { t: "Live tracking", d: "GPS pings & ETA updates", i: MapPin },
   { t: "Documents", d: "Confirmation, BOL & POD collected", i: FileText },
   { t: "Invoice sent", d: "Generated and emailed", i: Receipt },
-  { t: "Accounting sync", d: "Pushed to your books", i: RefreshCw },
+  { t: "QuickBooks sync", d: "Invoice & carrier bill mapped", i: RefreshCw },
 ];
 
 const logs = [
@@ -33,7 +33,7 @@ const logs = [
   "Tracking started · driver 12 mi from pickup",
   "BOL generated · POD uploaded by driver",
   "Invoice INV-10931 emailed to customer",
-  "Invoice synced to accounting ✓",
+  "Invoice & carrier bill prepared for QuickBooks sync ✓",
 ];
 
 export function Automation() {
@@ -147,7 +147,7 @@ export function Automation() {
                 <span className="flex items-center gap-2 text-signal">
                   <Zap className="h-3.5 w-3.5" /> automation.log
                 </span>
-                <span className="text-navy-muted">live</span>
+                <span className="text-navy-muted">sample activity</span>
               </div>
               <ul className="space-y-2">
                 {logs.slice(0, Math.max(active, 1)).map((l, i) => (

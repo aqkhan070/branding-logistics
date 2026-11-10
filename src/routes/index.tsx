@@ -54,6 +54,7 @@ import { Automation } from "@/components/site/Automation";
 import { ShipmentShowcase } from "@/components/site/ShipmentShowcase";
 import { HelpChat } from "@/components/site/HelpChat";
 import { SolutionPreview } from "@/components/site/SolutionPreview";
+import { ConnectedOperations } from "@/components/site/ConnectedOperations";
 import {
   Accordion,
   AccordionContent,
@@ -483,10 +484,10 @@ function Process() {
 }
 
 const integrations = [
-  { t: "Third-party APIs", i: Plug },
+  { t: "QuickBooks integration", i: Calculator },
   { t: "Payment gateways", i: CreditCard },
-  { t: "Accounting & ERP", i: Calculator },
-  { t: "GPS & tracking", i: MapPin },
+  { t: "1099 tax preparation & filing workflows", i: Calculator },
+  { t: "Descartes MacroPoint tracking", i: MapPin },
   { t: "CRM", i: Contact },
   { t: "Automated notifications", i: Bell },
   { t: "Cloud infrastructure", i: Cloud },
@@ -834,6 +835,7 @@ function Index() {
         <Solutions />
         <Why />
         <Automation />
+        <ConnectedOperations />
         <Process />
         <Integrations />
         <Industries />
