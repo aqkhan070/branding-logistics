@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const sdk = vi.hoisted(() => ({ streamText: vi.fn() }));
+const provider = vi.hoisted(() => ({ createOpenAI: vi.fn() }));
+vi.mock("@ai-sdk/openai", () => ({ createOpenAI: provider.createOpenAI }));
 vi.mock("ai", () => ({
   streamText: sdk.streamText,
   validateUIMessages: vi.fn(async ({ messages }) => messages),
@@ -9,6 +11,8 @@ vi.mock("ai", () => ({
 
 import { createResponsesCall } from "../lib/ai/responses.server";
 import { handleHelpChat } from "../lib/help-chat.server";
+
+provider.createOpenAI.mockReturnValue({ responses: () => ({}) });
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -53,19 +57,15 @@ describe("help chat cancellation", () => {
     sdk.streamText.mockImplementation(() => ({
       toUIMessageStreamResponse: () => {
         controller.abort();
+        const config = provider.createOpenAI.mock.calls.at(-1)?.[0];
+        void config.fetch("https://example.test/upstream").catch(() => {});
         return new Response("", { status: 200 });
       },
     }));
     // Settle the provider header gate without making a billable call.
-    const provider = await import("@ai-sdk/openai");
-    vi.spyOn(provider, "createOpenAI").mockImplementation((config) => {
-      const fakeFetch = vi.spyOn(globalThis, "fetch").mockRejectedValue(
-        new DOMException("This operation was aborted", "AbortError"),
-      );
-      void config?.fetch?.("https://example.test/upstream").catch(() => {});
-      expect(fakeFetch).toBeDefined();
-      return { responses: () => ({}) } as unknown as ReturnType<typeof provider.createOpenAI>;
-    });
+    vi.spyOn(globalThis, "fetch").mockRejectedValue(
+      new DOMException("This operation was aborted", "AbortError"),
+    );
     const response = await handleHelpChat(new Request("https://example.test/chat", {
       method: "POST",
       signal: controller.signal,
