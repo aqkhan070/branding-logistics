@@ -9,6 +9,8 @@ import {
 import { Dashboard, MiniPreview } from "@/components/site/Dashboard";
 import { Reveal, SectionHeader } from "@/components/site/Reveal";
 import { ContactForm } from "@/components/site/ContactForm";
+import { AgentDemo } from "@/components/site/AgentDemo";
+import { Automation } from "@/components/site/Automation";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
@@ -26,7 +28,7 @@ export const Route = createFileRoute("/")({
 });
 
 const nav = [
-  ["Services", "#solutions"], ["Solutions", "#why"], ["Industries", "#industries"],
+  ["Services", "#solutions"], ["AI Agents", "#agents"], ["Automation", "#automation"], ["Industries", "#industries"],
   ["Our Work", "#work"], ["About Us", "#process"], ["Contact", "#contact"],
 ] as const;
 
@@ -51,15 +53,15 @@ function Header() {
     return () => window.removeEventListener("scroll", f);
   }, []);
   return (
-    <header className={`sticky top-0 z-50 transition-all ${scrolled ? "border-b border-border bg-background/85 backdrop-blur-xl" : "bg-transparent"}`}>
+    <header className={`sticky top-0 z-50 transition-all ${scrolled ? "border-b border-navy-border bg-navy/85 backdrop-blur-xl" : "bg-transparent"} text-navy-foreground`}>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-        <Logo />
+        <Logo dark />
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
           {nav.map(([l, h]) => (
-            <a key={l} href={h} className="text-sm font-medium text-muted-foreground transition hover:text-foreground">{l}</a>
+            <a key={l} href={h} className="text-sm font-medium text-navy-muted transition hover:text-signal">{l}</a>
           ))}
         </nav>
-        <a href="#contact" className="hidden rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 lg:inline-flex">
+        <a href="#contact" className="hidden rounded-full bg-signal px-5 py-2.5 text-sm font-semibold text-signal-foreground shadow-glow transition hover:-translate-y-0.5 lg:inline-flex">
           Let's Discuss Your Project
         </a>
         <button className="lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
@@ -67,11 +69,11 @@ function Header() {
         </button>
       </div>
       {open && (
-        <nav className="border-t border-border bg-background px-5 pb-6 pt-2 lg:hidden" aria-label="Mobile">
+        <nav className="border-t border-navy-border bg-navy px-5 pb-6 pt-2 lg:hidden" aria-label="Mobile">
           {nav.map(([l, h]) => (
-            <a key={l} href={h} onClick={() => setOpen(false)} className="block border-b border-border py-3 font-medium">{l}</a>
+            <a key={l} href={h} onClick={() => setOpen(false)} className="block border-b border-navy-border py-3 font-medium">{l}</a>
           ))}
-          <a href="#contact" onClick={() => setOpen(false)} className="mt-4 block rounded-full bg-primary py-3 text-center font-semibold text-primary-foreground">
+          <a href="#contact" onClick={() => setOpen(false)} className="mt-4 block rounded-full bg-signal py-3 text-center font-semibold text-signal-foreground">
             Let's Discuss Your Project
           </a>
         </nav>
@@ -82,25 +84,28 @@ function Header() {
 
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden bg-hero">
-      <div className="pointer-events-none absolute inset-0 grid-bg opacity-60" />
+    <section id="top" className="relative -mt-16 overflow-hidden bg-navy pt-16 text-navy-foreground">
+      <div className="pointer-events-none absolute inset-0 grid-dark" />
+      <div className="pointer-events-none absolute -right-40 -top-40 h-[40rem] w-[40rem] rounded-full bg-signal/15 blur-3xl animate-glow" />
+      <div className="pointer-events-none absolute -left-40 top-40 h-[30rem] w-[30rem] rounded-full bg-chart-2/15 blur-3xl animate-glow [animation-delay:1.5s]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px overflow-hidden bg-navy-border"><div className="h-full w-1/4 bg-gradient-to-r from-transparent via-signal to-transparent animate-beam" /></div>
       <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 pb-24 pt-14 lg:grid-cols-[1.05fr_1fr] lg:pt-24">
         <div className="animate-rise">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium shadow-card">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" /> Software that moves your business forward
+          <span className="inline-flex items-center gap-2 glass rounded-full px-3 py-1 text-xs font-medium text-navy-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-signal animate-glow" /> Software that moves your business forward
           </span>
           <h1 className="mt-6 text-4xl font-semibold leading-[1.05] sm:text-6xl">
-            Custom Logistics Software Built Around <span className="relative whitespace-nowrap">Your Business.<span className="absolute -bottom-1 left-0 h-3 w-full -z-10 bg-accent/60" /></span>
+            Custom Logistics Software Built Around <span className="text-gradient text-glow">Your Business.</span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+          <p className="mt-6 max-w-xl text-lg text-navy-muted">
             Transform complex logistics operations into streamlined digital workflows. We design and develop powerful software for transportation, freight, fleet, warehousing, and supply chain businesses.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5">
+            <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-signal px-6 py-3.5 text-sm font-semibold text-signal-foreground shadow-glow transition hover:-translate-y-0.5">
               Discuss Your Project <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#solutions" className="inline-flex items-center gap-2 rounded-full border border-input bg-card px-6 py-3.5 text-sm font-semibold transition hover:bg-secondary">
-              Explore Our Solutions
+            <a href="#agents" className="inline-flex items-center gap-2 glass rounded-full px-6 py-3.5 text-sm font-semibold transition hover:border-signal">
+              See the AI Agent
             </a>
           </div>
           <ul className="mt-10 grid gap-3 sm:grid-cols-3">
@@ -108,20 +113,20 @@ function Hero() {
               const Icon = I as typeof Workflow;
               return (
                 <li key={t as string} className="flex items-center gap-2 text-sm font-medium">
-                  <Icon className="h-4 w-4 shrink-0 text-primary" /> {t as string}
+                  <Icon className="h-4 w-4 shrink-0 text-signal" /> {t as string}
                 </li>
               );
             })}
           </ul>
         </div>
-        <div className="animate-rise relative [animation-delay:200ms]">
-          <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-accent/20 blur-3xl" />
+        <div className="animate-rise relative animate-float [animation-delay:200ms]">
+          <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-signal/20 blur-3xl" />
           <Dashboard />
-          <div className="absolute -bottom-6 -left-6 hidden rounded-2xl border border-border bg-card p-4 shadow-card sm:block">
-            <p className="text-xs text-muted-foreground">Fleet overview</p>
+          <div className="absolute -bottom-6 -left-6 hidden glass rounded-2xl p-4 sm:block">
+            <p className="text-xs text-navy-muted">Fleet overview</p>
             <div className="mt-1 flex items-center gap-3">
               <span className="font-display text-2xl font-semibold">128</span>
-              <span className="text-xs text-muted-foreground">vehicles · 94% active</span>
+              <span className="text-xs text-navy-muted">vehicles · 94% active</span>
             </div>
           </div>
         </div>
@@ -513,8 +518,10 @@ function Index() {
       <main>
         <Hero />
         <Problem />
+        <AgentDemo />
         <Solutions />
         <Why />
+        <Automation />
         <Process />
         <Integrations />
         <Industries />

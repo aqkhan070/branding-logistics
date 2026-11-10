@@ -117,3 +117,32 @@
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+@keyframes grid-move { to { background-position: 0 48px, 48px 0; } }
+@keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes beam { 0% { transform: translateX(-100%); } 100% { transform: translateX(400%); } }
+@keyframes flow-dot { 0% { left: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+@keyframes orbit { to { transform: rotate(360deg); } }
+@keyframes glow-pulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+@keyframes blink { 50% { opacity: 0; } }
+@utility grid-dark {
+  background-image: linear-gradient(var(--color-navy-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-navy-border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: grid-move 6s linear infinite;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+}
+@utility animate-float { animation: float-y 6s ease-in-out infinite; }
+@utility animate-beam { animation: beam 3s linear infinite; }
+@utility animate-flow-dot { animation: flow-dot 2.4s linear infinite; }
+@utility animate-scan { animation: scan 4s linear infinite; }
+@utility animate-orbit { animation: orbit 30s linear infinite; }
+@utility animate-glow { animation: glow-pulse 3s ease-in-out infinite; }
+@utility animate-blink { animation: blink 1s step-end infinite; }
+@utility text-glow { text-shadow: 0 0 40px oklch(0.86 0.2 150 / 45%); }
+@utility text-gradient {
+  background: linear-gradient(90deg, var(--color-signal), var(--color-chart-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+@utility glass { background: oklch(1 0 0 / 4%); backdrop-filter: blur(16px); border: 1px solid var(--color-navy-border); }
