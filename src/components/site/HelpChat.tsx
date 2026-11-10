@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { MessageCircle, X, ArrowUp, RotateCcw } from "lucide-react";
+import { X, ArrowUp, RotateCcw } from "lucide-react";
 import mascot from "@/assets/movara-dispatch-assistant.png";
 import { Button } from "@/components/ui/button";
 import { Conversation, ConversationContent, ConversationScrollButton } from "@/components/ai-elements/conversation";

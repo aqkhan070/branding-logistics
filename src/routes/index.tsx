@@ -13,6 +13,7 @@ import { AgentDemo } from "@/components/site/AgentDemo";
 import { Automation } from "@/components/site/Automation";
 import { ShipmentShowcase } from "@/components/site/ShipmentShowcase";
 import { HelpChat } from "@/components/site/HelpChat";
+import mascot from "@/assets/movara-dispatch-assistant.png";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
@@ -124,6 +125,7 @@ function Hero() {
         <div className="animate-rise relative animate-float [animation-delay:200ms]">
           <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-signal/20 blur-3xl" />
           <Dashboard />
+          <img src={mascot} alt="Milo, your logistics operations assistant" width={1024} height={1024} className="pointer-events-none absolute -right-4 -top-24 h-36 w-36 object-contain motion-safe:animate-float sm:-right-8 sm:-top-28 sm:h-44 sm:w-44" />
           <div className="absolute -bottom-6 -left-6 hidden glass rounded-2xl p-4 sm:block">
             <p className="text-xs text-navy-muted">Fleet overview</p>
             <div className="mt-1 flex items-center gap-3">

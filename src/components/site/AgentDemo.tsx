@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Bot, Send, MapPin, Truck, FileCheck2, DollarSign, Sparkles } from "lucide-react";
+import { Send, MapPin, Truck, FileCheck2, DollarSign, Sparkles } from "lucide-react";
 import { Reveal, SectionHeader } from "./Reveal";
 import mascot from "@/assets/movara-dispatch-assistant.png";
 
