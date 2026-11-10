@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Bot, Send, MapPin, Truck, FileCheck2, DollarSign, Sparkles } from "lucide-react";
 import { Reveal, SectionHeader } from "./Reveal";
+import mascot from "@/assets/movara-dispatch-assistant.png";
 
 type Msg = { role: "user" | "agent"; text: string; card?: Card };
 type Card = { title: string; rows: [string, string][]; progress?: number };
@@ -54,6 +55,7 @@ export function AgentDemo() {
     setMsgs((m) => [...m, { role: "user", text }]);
     setInput("");
     setTyping(true);
+    window.__lovableEvents?.track?.("project.agent_question", { surface: "operations_demo", source: suggestions.includes(text) ? "suggestion" : "typed" });
     setTimeout(() => {
       setMsgs((m) => [...m, reply(text)]);
       setTyping(false);
@@ -92,7 +94,7 @@ export function AgentDemo() {
               <div className="pointer-events-none absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-signal/5 to-transparent animate-scan" />
               <div className="flex items-center gap-3 border-b border-navy-border px-5 py-4">
                 <span className="relative grid h-9 w-9 place-items-center rounded-full bg-signal text-signal-foreground">
-                  <Bot className="h-5 w-5" />
+                  <img src={mascot} alt="" width={1024} height={1024} className="h-9 w-9 object-contain" />
                   <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-navy-2 bg-signal" />
                 </span>
                 <div>
@@ -134,7 +136,7 @@ export function AgentDemo() {
               </div>
               <div className="flex flex-wrap gap-2 px-5 pb-3">
                 {suggestions.map((s) => (
-                  <button key={s} onClick={() => ask(s)} className="rounded-full border border-navy-border px-3 py-1.5 text-xs text-navy-muted transition hover:border-signal hover:text-signal">
+                  <button key={s} disabled={typing} onClick={() => { window.__lovableEvents?.track?.("project.suggested_question", { surface: "operations_demo", suggestion: String(suggestions.indexOf(s)) }); ask(s); }} className="rounded-full border border-navy-border px-3 py-1.5 text-xs text-navy-muted transition hover:border-signal hover:text-signal">
                     {s}
                   </button>
                 ))}

@@ -11,6 +11,8 @@ import { Reveal, SectionHeader } from "@/components/site/Reveal";
 import { ContactForm } from "@/components/site/ContactForm";
 import { AgentDemo } from "@/components/site/AgentDemo";
 import { Automation } from "@/components/site/Automation";
+import { ShipmentShowcase } from "@/components/site/ShipmentShowcase";
+import { HelpChat } from "@/components/site/HelpChat";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
@@ -519,6 +521,7 @@ function Index() {
         <Hero />
         <Problem />
         <AgentDemo />
+        <ShipmentShowcase />
         <Solutions />
         <Why />
         <Automation />
@@ -530,6 +533,7 @@ function Index() {
         <CTA />
       </main>
       <Footer />
+      <HelpChat />
     </>
   );
 }
