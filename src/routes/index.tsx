@@ -53,6 +53,7 @@ import { AgentDemo } from "@/components/site/AgentDemo";
 import { Automation } from "@/components/site/Automation";
 import { ShipmentShowcase } from "@/components/site/ShipmentShowcase";
 import { HelpChat } from "@/components/site/HelpChat";
+import { SolutionPreview } from "@/components/site/SolutionPreview";
 import {
   Accordion,
   AccordionContent,
@@ -349,7 +350,7 @@ function Solutions() {
             <Reveal key={s.t} delay={(idx % 4) * 80}>
               <a
                 href="#contact"
-                className="group flex h-full flex-col rounded-2xl border border-border bg-card p-5 shadow-card transition hover:-translate-y-1 hover:border-primary/30"
+                className="group flex h-full flex-col rounded-lg border border-border bg-card p-5 shadow-card transition duration-300 hover:-translate-y-1 hover:border-chart-2/50 hover:shadow-float"
               >
                 <div className="flex items-center justify-between">
                   <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary text-primary-foreground">
@@ -360,7 +361,7 @@ function Solutions() {
                 <h3 className="mt-5 text-base font-semibold">{s.t}</h3>
                 <p className="mt-2 flex-1 text-sm text-muted-foreground">{s.d}</p>
                 <div className="mt-5">
-                  <MiniPreview variant={idx} />
+                  <SolutionPreview variant={idx} />
                 </div>
                 <span className="mt-4 text-sm font-semibold">Explore Solution →</span>
               </a>

@@ -33,3 +33,4 @@ use the editor.
 - Use AI Elements for real-chat messages, conversation scrolling and composition so the browser matches the SDK streaming protocol.
 - Keep shipment and notification showcases client-only with sample data; never imply that their animations send messages or access live shipments.
 - Emit privacy-safe analytics directly in interaction handlers through the injected Lovable events global; never collect question text.
+- Keep service-specific illustrative interfaces in SolutionPreview separate from the shared dashboard; each service needs a distinct, sample-labeled preview without live data access.
