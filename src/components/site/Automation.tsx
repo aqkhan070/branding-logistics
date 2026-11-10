@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Inbox, ShieldCheck, Truck, MapPin, FileText, Receipt, RefreshCw, CheckCircle2, Zap } from "lucide-react";
+import { Inbox, ShieldCheck, Truck, MapPin, FileText, Receipt, RefreshCw, CheckCircle2, Zap, Play, Pause, RotateCcw } from "lucide-react";
 import { Reveal, SectionHeader } from "./Reveal";
+import { Button } from "@/components/ui/button";
 
 const steps = [
   { t: "Order received", d: "Load created from email or portal", i: Inbox },
@@ -24,16 +25,19 @@ const logs = [
 
 export function Automation() {
   const [active, setActive] = useState(0);
+  const [playing, setPlaying] = useState(true);
   useEffect(() => {
+    if (!playing) return;
     const t = setInterval(() => setActive((a) => (a + 1) % (steps.length + 1)), 1400);
     return () => clearInterval(t);
-  }, []);
+  }, [playing]);
 
   return (
     <section id="automation" className="relative overflow-hidden bg-navy-glow py-28 text-navy-foreground">
       <div className="pointer-events-none absolute inset-0 grid-dark opacity-60" />
       <div className="relative mx-auto max-w-7xl px-5">
         <SectionHeader dark eyebrow="Automated operations" title="Workflows That Run Themselves." text="From the moment an order lands to the moment it's in your books — every step automated, visible and traceable." />
+        <div className="mb-8 flex items-center justify-end gap-2"><span className="mr-2 text-xs text-navy-muted">Sample workflow</span><Button variant="ghost" size="icon" title={playing ? "Pause workflow" : "Play workflow"} aria-label={playing ? "Pause workflow" : "Play workflow"} onClick={() => { setPlaying(!playing); window.__lovableEvents?.track?.("project.workflow_interaction", { surface: "automation", action: playing ? "pause" : "play" }); }}>{playing ? <Pause/> : <Play/>}</Button><Button variant="ghost" size="icon" title="Restart workflow" aria-label="Restart workflow" onClick={() => { setActive(0); setPlaying(true); window.__lovableEvents?.track?.("project.workflow_interaction", { surface: "automation", action: "restart" }); }}><RotateCcw/></Button></div>
 
         <Reveal>
           <div className="relative grid gap-3 md:grid-cols-7">
