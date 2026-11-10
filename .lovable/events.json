@@ -24,6 +24,30 @@
           }
         }
       }
+    },
+    "project.suggested_question": {
+      "event_schema_version": 1,
+      "description": "A visitor clicks a suggested agent question.",
+      "privacy": {
+        "contains_pii": false,
+        "purpose": "product_analytics"
+      },
+      "properties_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "surface",
+          "suggestion"
+        ],
+        "properties": {
+          "surface": {
+            "type": "string"
+          },
+          "suggestion": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }
