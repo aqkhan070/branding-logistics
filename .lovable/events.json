@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "events": {
+    "project.agent_question": {
+      "event_schema_version": 1,
+      "description": "A visitor submits a question to the help chat or sample operations agent. Question text is not collected.",
+      "privacy": {
+        "contains_pii": false,
+        "purpose": "product_analytics"
+      },
+      "properties_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "surface",
+          "source"
+        ],
+        "properties": {
+          "surface": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
