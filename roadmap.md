@@ -1,7 +1,7 @@
 # Requested experience
-- [ ] Review the whole page and recommend workflow-animation improvements.
-- [ ] Add sample QuickBooks, 1099 tax, and MacroPoint workflow showcases.
-- [ ] Add three driver mobile-app concept screens and verify desktop/mobile presentation.
+- [x] Review the whole page and recommend workflow-animation improvements.
+- [x] Add sample QuickBooks, 1099 tax, and MacroPoint workflow showcases.
+- [x] Add three driver mobile-app concept screens and verify desktop/mobile presentation.
 - [x] Moving branded logistics mascot and shipment tracking.
 - [x] Carrier/system-agent roles and animated email, WhatsApp, in-app updates.
 - [x] Real single-session help chat, without saved conversations.

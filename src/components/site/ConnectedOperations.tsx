@@ -68,6 +68,7 @@ export function ConnectedOperations() {
     const timer = setInterval(() => setStage((s) => (s + 1) % 4), 2400);
     return () => clearInterval(timer);
   }, [playing, selected]);
+  if (!scenario) return null;
   return (
     <>
       <section id="connected-operations" className="bg-secondary/50 py-24">
