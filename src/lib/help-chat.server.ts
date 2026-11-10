@@ -29,6 +29,9 @@ export async function handleHelpChat(request: Request) {
           : "Live help could not respond. Please try again later.",
     });
     await call.headersReady;
+    // Cancellation may happen while the provider is still opening its stream.
+    // It is not thrown through this handler's catch by streamText.
+    if (request.signal.aborted) return new Response(null, { status: 499 });
     const failure = call.getUpstreamFailure();
     if (failure) return Response.json({ message: failure.message }, { status: failure.status });
     return withLovableAiGatewayRunIdHeader(response, call.runIdFetch);

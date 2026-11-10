@@ -53,6 +53,11 @@ export function createResponsesCall(
     messages,
     maxRetries: 0,
     abortSignal: request.signal,
+    onError: ({ error }) => {
+      // The SDK otherwise logs expected disconnects/Stop as runtime failures.
+      if (request.signal.aborted) return;
+      console.error(error);
+    },
     providerOptions: {
       openai: {
         store: false,
