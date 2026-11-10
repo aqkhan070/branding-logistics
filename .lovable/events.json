@@ -48,6 +48,30 @@
           }
         }
       }
+    },
+    "project.workflow_interaction": {
+      "event_schema_version": 1,
+      "description": "A visitor pauses, plays or restarts a workflow showcase, or selects an agent role.",
+      "privacy": {
+        "contains_pii": false,
+        "purpose": "product_analytics"
+      },
+      "properties_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "surface",
+          "action"
+        ],
+        "properties": {
+          "surface": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }
