@@ -423,7 +423,7 @@ function Work() {
   );
 }
 
-const faqs = [
+const faqs: [string, string][] = [
   ["What type of logistics software do you develop?", "Transportation and freight management, fleet management, warehouse systems, shipment tracking, dispatch tools, customer portals and custom logistics ERPs."],
   ["Can you build software around our existing business processes?", "Yes. We start by mapping how your team works today, then design the software around those workflows rather than forcing you into a template."],
   ["Can you integrate with our existing ERP or accounting software?", "Yes. We regularly connect platforms with accounting systems, ERPs, tracking providers, email and other third-party services."],
