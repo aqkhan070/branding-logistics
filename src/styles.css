@@ -92,7 +92,7 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.025em; }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0; }
 }
 
 @utility bg-hero { background-image: var(--gradient-hero); }
@@ -146,3 +146,12 @@
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 @utility glass { background: oklch(1 0 0 / 4%); backdrop-filter: blur(16px); border: 1px solid var(--color-navy-border); }
+
+.shipment-map { background-image: linear-gradient(var(--navy-border) 1px, transparent 1px), linear-gradient(90deg, var(--navy-border) 1px, transparent 1px); background-size: 32px 32px; }
+.map-vehicle { position: absolute; offset-path: path("M65 245 C140 230 155 115 255 145 S395 240 530 80"); offset-rotate: 0deg; animation: vehicle-progress 14.4s linear infinite; }
+/* Percent coordinates remain aligned across map widths. */
+@supports (offset-path: shape(from 10% 77%, curve to 88% 25% with 40% 0%)) { .map-vehicle { offset-path: shape(from 10% 77%, curve to 43% 45% with 23% 72% / 26% 36%, curve to 88% 25% with 66% 75% / 70% 58%); } }
+.map-vehicle.is-paused { animation-play-state: paused; }
+.dashboard-vehicle { offset-path: path("M30 120 C90 40 160 140 270 40"); offset-rotate: 0deg; animation: vehicle-progress 12s linear infinite; }
+@keyframes vehicle-progress { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } .map-vehicle, .dashboard-vehicle { offset-distance: 45%; } }

@@ -48,16 +48,31 @@ export function Dashboard() {
                 <line key={`h${i}`} x1="0" y1={i * 32} x2="300" y2={i * 32} />
               ))}
             </g>
-            <path d="M30 120 C 90 40, 160 140, 270 40" fill="none" stroke="currentColor" className="animate-dash text-signal" strokeWidth="2.5" />
-            <path d="M40 40 C 110 90, 180 30, 250 120" fill="none" stroke="currentColor" className="animate-dash text-chart-2" strokeWidth="2" strokeDasharray="4 4" />
+            <path
+              d="M30 120 C 90 40, 160 140, 270 40"
+              fill="none"
+              stroke="currentColor"
+              className="animate-dash text-signal"
+              strokeWidth="2.5"
+            />
+            <path
+              d="M40 40 C 110 90, 180 30, 250 120"
+              fill="none"
+              stroke="currentColor"
+              className="animate-dash text-chart-2"
+              strokeWidth="2"
+              strokeDasharray="4 4"
+            />
           </svg>
-          <span className="absolute left-[9%] top-[72%] h-3 w-3 rounded-full bg-signal">
-            <span className="absolute inset-0 rounded-full bg-signal animate-pulse-dot" />
+          <span className="dashboard-vehicle absolute grid h-7 w-7 place-items-center rounded-md bg-signal text-signal-foreground">
+            <Truck className="h-4 w-4" />
           </span>
           <span className="absolute right-[9%] top-[22%] flex items-center gap-1 rounded-md bg-navy px-2 py-1 text-[10px]">
             <MapPin className="h-3 w-3 text-signal" /> ETA 2h 14m
           </span>
-          <span className="absolute bottom-2 left-3 text-[11px] text-navy-muted">Shipment tracking</span>
+          <span className="absolute bottom-2 left-3 text-[11px] text-navy-muted">
+            Shipment tracking
+          </span>
         </div>
         <div className="col-span-2 rounded-xl bg-navy-2 p-3">
           <p className="text-[11px] text-navy-muted">Revenue overview</p>
@@ -77,7 +92,9 @@ export function Dashboard() {
             <li key={o.id} className="flex items-center justify-between text-xs">
               <span className="font-medium">{o.id}</span>
               <span className="text-navy-muted">{o.route}</span>
-              <span className="rounded-full bg-signal/15 px-2 py-0.5 text-[10px] text-signal">{o.status}</span>
+              <span className="rounded-full bg-signal/15 px-2 py-0.5 text-[10px] text-signal">
+                {o.status}
+              </span>
             </li>
           ))}
         </ul>

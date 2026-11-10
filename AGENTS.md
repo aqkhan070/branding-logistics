@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Keep the public service chat on a TanStack server streaming endpoint using AI SDK and Lovable Gateway; no transcript is stored because this is a single-session help surface.
+- Use AI Elements for real-chat messages, conversation scrolling and composition so the browser matches the SDK streaming protocol.
+- Keep shipment and notification showcases client-only with sample data; never imply that their animations send messages or access live shipments.
+- Emit privacy-safe analytics directly in interaction handlers through the injected Lovable events global; never collect question text.
