@@ -154,4 +154,19 @@
 .map-vehicle.is-paused { animation-play-state: paused; }
 .dashboard-vehicle { offset-path: path("M30 120 C90 40 160 140 270 40"); offset-rotate: 0deg; animation: vehicle-progress 12s linear infinite; }
 @keyframes vehicle-progress { from { offset-distance: 0%; } to { offset-distance: 100%; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } .map-vehicle, .dashboard-vehicle { offset-distance: 45%; } }
+
+@keyframes feature-orbit-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.86 0.2 150 / 40%), 0 10px 40px -10px oklch(0.86 0.2 150 / 50%); }
+  50% { box-shadow: 0 0 0 14px oklch(0.86 0.2 150 / 0%), 0 10px 40px -10px oklch(0.86 0.2 150 / 50%); }
+}
+.feature-orbit-active { animation: feature-orbit-pulse 2.4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  .map-vehicle, .dashboard-vehicle { offset-distance: 45%; }
+  .feature-orbit-active { animation: none !important; }
+}

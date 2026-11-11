@@ -7,12 +7,19 @@ const stats = [
 ];
 
 const orders = [
-  { id: "SHP-20931", route: "Dallas → Atlanta", status: "In transit" },
+  { id: "SHP-20931", route: "Dallas → Abilene → Phoenix", status: "Multi-stop" },
   { id: "SHP-20928", route: "Chicago → Denver", status: "Delivered" },
   { id: "SHP-20925", route: "Toronto → Detroit", status: "Pickup" },
 ];
 
 const bars = [40, 62, 48, 75, 58, 88, 70, 94, 66, 80, 72, 98];
+
+/** Stops on green route path M30 120 C90 40, 160 140, 270 40 */
+const routeStops = [
+  { cx: 30, cy: 120, label: "PU1" },
+  { cx: 109, cy: 86, label: "PU2" },
+  { cx: 270, cy: 40, label: "DEL" },
+] as const;
 
 export function Dashboard() {
   return (
@@ -39,7 +46,7 @@ export function Dashboard() {
 
       <div className="mt-3 grid grid-cols-5 gap-3">
         <div className="relative col-span-3 h-40 overflow-hidden rounded-xl bg-navy-2">
-          <svg viewBox="0 0 300 160" className="absolute inset-0 h-full w-full">
+          <svg viewBox="0 0 300 160" className="absolute inset-0 h-full w-full" aria-hidden>
             <g stroke="currentColor" className="text-navy-border" strokeWidth="1">
               {Array.from({ length: 10 }).map((_, i) => (
                 <line key={`v${i}`} x1={i * 32} y1="0" x2={i * 32} y2="160" />
@@ -63,6 +70,19 @@ export function Dashboard() {
               strokeWidth="2"
               strokeDasharray="4 4"
             />
+            {routeStops.map((s) => (
+              <g key={s.label}>
+                <circle cx={s.cx} cy={s.cy} r="5" className="fill-signal stroke-navy" strokeWidth="2" />
+                <text
+                  x={s.cx}
+                  y={s.cy - 10}
+                  textAnchor="middle"
+                  className="fill-navy-foreground text-[8px] font-semibold"
+                >
+                  {s.label}
+                </text>
+              </g>
+            ))}
           </svg>
           <span className="dashboard-vehicle absolute grid h-7 w-7 place-items-center rounded-md bg-signal text-signal-foreground">
             <Truck className="h-4 w-4" />
@@ -71,7 +91,7 @@ export function Dashboard() {
             <MapPin className="h-3 w-3 text-signal" /> ETA 2h 14m
           </span>
           <span className="absolute bottom-2 left-3 text-[11px] text-navy-muted">
-            Shipment tracking
+            Multi-stop tracking · 2 pickups · 1 delivery
           </span>
         </div>
         <div className="col-span-2 rounded-xl bg-navy-2 p-3">
@@ -89,10 +109,10 @@ export function Dashboard() {
         <p className="mb-2 text-[11px] text-navy-muted">Recent orders</p>
         <ul className="space-y-1.5">
           {orders.map((o) => (
-            <li key={o.id} className="flex items-center justify-between text-xs">
+            <li key={o.id} className="flex items-center justify-between gap-2 text-xs">
               <span className="font-medium">{o.id}</span>
-              <span className="text-navy-muted">{o.route}</span>
-              <span className="rounded-full bg-signal/15 px-2 py-0.5 text-[10px] text-signal">
+              <span className="truncate text-navy-muted">{o.route}</span>
+              <span className="shrink-0 rounded-full bg-signal/15 px-2 py-0.5 text-[10px] text-signal">
                 {o.status}
               </span>
             </li>

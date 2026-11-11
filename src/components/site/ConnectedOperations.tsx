@@ -7,11 +7,9 @@ import {
   Pause,
   Play,
   ArrowRight,
-  Smartphone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Reveal, SectionHeader } from "./Reveal";
-import driverScreens from "@/assets/driver-app-concept.jpg";
+import { SectionHeader } from "./Reveal";
 
 const scenarios = [
   {
@@ -70,7 +68,6 @@ export function ConnectedOperations() {
   }, [playing, selected]);
   if (!scenario) return null;
   return (
-    <>
       <section id="connected-operations" className="bg-secondary/50 py-24">
         <div className="mx-auto max-w-7xl px-5">
           <SectionHeader eyebrow="Connected operations" title="From the road to your books." />
@@ -167,62 +164,5 @@ export function ConnectedOperations() {
           </div>
         </div>
       </section>
-      <section id="driver-app" className="py-24">
-        <div className="mx-auto max-w-7xl px-5">
-          <SectionHeader
-            eyebrow="Driver mobile app"
-            title="One trip. Every detail in your driver’s hand."
-            text="Load assignments, trip updates and proof of delivery, connected to the dispatch workflow."
-          />
-          <Reveal>
-            <img
-              src={driverScreens}
-              loading="lazy"
-              width={1536}
-              height={1024}
-              alt="Three Movara driver-app concept screens: load assignment, trip tracking, and proof of delivery with photo and signature"
-              className="mx-auto w-full max-w-5xl rounded-lg"
-            />
-          </Reveal>
-          <p className="mt-4 text-center text-xs text-muted-foreground">
-            Concept screens · Sample information · Not an existing mobile-app release
-          </p>
-          <div className="mx-auto mt-10 grid max-w-5xl gap-8 sm:grid-cols-3">
-            {[
-              [
-                "01",
-                "Accept the load",
-                "Pickup, delivery, equipment and trip details in one place.",
-              ],
-              [
-                "02",
-                "Keep dispatch updated",
-                "Share trip milestones and location through a consent-based tracking workflow.",
-              ],
-              [
-                "03",
-                "Close the delivery",
-                "Capture delivery photos and signatures for the POD approval and invoicing flow.",
-              ],
-            ].map(([n, t, d]) => (
-              <div key={n} className="border-t border-border pt-5">
-                <span className="text-xs font-semibold text-chart-2">{n}</span>
-                <h3 className="mt-2 text-lg font-semibold">{t}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{d}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Button asChild>
-              <a href="#contact">
-                <Smartphone className="h-4 w-4" />
-                Discuss a driver app
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </Button>
-          </div>
-        </div>
-      </section>
-    </>
   );
 }

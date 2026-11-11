@@ -40,27 +40,48 @@ import {
   Gauge,
   KeyRound,
   LifeBuoy,
-  Linkedin,
   Mail,
   Phone,
   Check,
   Sparkles,
+  Globe,
+  MessageCircle,
 } from "lucide-react";
 import { Dashboard, MiniPreview } from "@/components/site/Dashboard";
 import { Reveal, SectionHeader } from "@/components/site/Reveal";
-import { ContactForm } from "@/components/site/ContactForm";
 import { AgentDemo } from "@/components/site/AgentDemo";
 import { Automation } from "@/components/site/Automation";
 import { ShipmentShowcase } from "@/components/site/ShipmentShowcase";
 import { HelpChat } from "@/components/site/HelpChat";
 import { SolutionPreview } from "@/components/site/SolutionPreview";
 import { ConnectedOperations } from "@/components/site/ConnectedOperations";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { FeatureShowcase } from "@/components/site/FeatureShowcase";
+
+const CONTACT_EMAIL = "info@eazisols.com";
+const CONTACT_PHONE = "+92 313 8484008";
+const CONTACT_PHONE_TEL = "+923138484008";
+const CONTACT_WEB = "https://eazisols.com";
+const WHATSAPP_URL = "https://wa.me/923138484008";
+const CONTACT_PAGE = "https://eazisols.com/contact-us";
+const ABOUT_PAGE = "https://eazisols.com/about-us";
+const PORTFOLIO_PAGE = "https://eazisols.com/portfolio";
+
+/** Scan saves phone, email, and website to contacts. */
+const CONTACT_VCARD = [
+  "BEGIN:VCARD",
+  "VERSION:3.0",
+  "N:Eazisols;;;;",
+  "FN:Eazisols",
+  "ORG:Eazisols",
+  `TEL;TYPE=CELL,VOICE:${CONTACT_PHONE_TEL}`,
+  `EMAIL;TYPE=INTERNET:${CONTACT_EMAIL}`,
+  `URL:${CONTACT_WEB}`,
+  "END:VCARD",
+].join("\n");
+
+function qrSrc(data: string, size = 160) {
+  return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(data)}`;
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -682,93 +703,126 @@ function Work() {
   );
 }
 
-const faqs: [string, string][] = [
-  [
-    "What type of logistics software do you develop?",
-    "Transportation and freight management, fleet management, warehouse systems, shipment tracking, dispatch tools, customer portals and custom logistics ERPs.",
-  ],
-  [
-    "Can you build software around our existing business processes?",
-    "Yes. We start by mapping how your team works today, then design the software around those workflows rather than forcing you into a template.",
-  ],
-  [
-    "Can you integrate with our existing ERP or accounting software?",
-    "Yes. We regularly connect platforms with accounting systems, ERPs, tracking providers, email and other third-party services.",
-  ],
-  [
-    "Can you modernize our existing logistics application?",
-    "Yes. We can extend, refactor or gradually replace legacy systems while keeping your operations running.",
-  ],
-  [
-    "Do you provide ongoing maintenance and support?",
-    "Yes. We offer long-term support, monitoring, improvements and new feature development after launch.",
-  ],
-  [
-    "Can you develop cloud-based logistics platforms?",
-    "Yes. We build secure, cloud-hosted platforms that scale with your business and are accessible from anywhere.",
-  ],
-  [
-    "How do you estimate project costs and timelines?",
-    "After a discovery call we define scope and priorities, then share a phased estimate so you know what you get at each stage.",
-  ],
-];
-
-function FAQ() {
-  return (
-    <section className="py-24">
-      <div className="mx-auto max-w-3xl px-5">
-        <SectionHeader eyebrow="FAQ" title="Questions, answered." />
-        <Accordion
-          type="single"
-          collapsible
-          className="rounded-2xl border border-border bg-card px-6 shadow-card"
-        >
-          {faqs.map(([q, a]) => (
-            <AccordionItem key={q} value={q}>
-              <AccordionTrigger className="text-left font-display text-base">{q}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">{a}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-    </section>
-  );
-}
-
 function CTA() {
   return (
     <section id="contact" className="px-5 pb-24">
-      <div className="mx-auto grid max-w-7xl gap-12 overflow-hidden rounded-[2rem] bg-navy-glow p-8 sm:p-14 lg:grid-cols-2">
-        <div>
-          <h2 className="text-3xl font-semibold text-navy-foreground sm:text-5xl">
-            Let's Build the Software Your Logistics Business Needs.
-          </h2>
-          <p className="mt-5 text-lg text-navy-muted">
-            Whether you're modernizing existing operations, building a new logistics platform, or
-            connecting disconnected systems, let's discuss how custom software can move your
-            business forward.
-          </p>
-          <div className="mt-8 space-y-3 text-sm text-navy-foreground">
-            <p className="flex items-center gap-3">
-              <Mail className="h-4 w-4 text-signal" /> hello@movara.dev
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-navy-glow p-8 sm:p-14">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+          <div>
+            <h2 className="text-3xl font-semibold text-navy-foreground sm:text-5xl">
+              Talk to us. Ask for a walkthrough.
+            </h2>
+            <p className="mt-5 text-lg text-navy-muted">
+              Stop by the stall or scan a QR — we’ll show the desk live and talk about fitting it to
+              your operation.
             </p>
-            <p className="flex items-center gap-3">
-              <Phone className="h-4 w-4 text-signal" /> +1 (000) 000-0000
-            </p>
+            <div className="mt-8 space-y-4 text-base text-navy-foreground sm:text-lg">
+              <a
+                href={`tel:${CONTACT_PHONE_TEL}`}
+                className="flex items-center gap-3 transition hover:text-signal"
+              >
+                <Phone className="h-5 w-5 text-signal" /> {CONTACT_PHONE}
+              </a>
+              <a
+                href={CONTACT_WEB}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 transition hover:text-signal"
+              >
+                <Globe className="h-5 w-5 text-signal" /> eazisols.com
+              </a>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="flex items-center gap-3 transition hover:text-signal"
+              >
+                <Mail className="h-5 w-5 text-signal" /> {CONTACT_EMAIL}
+              </a>
+              <p className="flex items-center gap-3 font-semibold text-signal">
+                <Check className="h-5 w-5" /> Ask for a walkthrough
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-col items-center rounded-2xl border border-navy-border bg-navy-2/60 p-5 text-center">
+              <img
+                src={qrSrc(CONTACT_VCARD, 168)}
+                alt="QR code with Eazisols contact vCard: phone, email, and website"
+                width={168}
+                height={168}
+                className="rounded-lg bg-white p-2"
+              />
+              <p className="mt-4 font-display text-base font-semibold text-navy-foreground">
+                Contact card
+              </p>
+              <p className="mt-1 text-sm text-navy-muted">
+                Scan to save phone, email &amp; website
+              </p>
+            </div>
+            <div className="flex flex-col items-center rounded-2xl border border-navy-border bg-navy-2/60 p-5 text-center">
+              <img
+                src={qrSrc(WHATSAPP_URL, 168)}
+                alt="QR code to WhatsApp chat with Eazisols"
+                width={168}
+                height={168}
+                className="rounded-lg bg-white p-2"
+              />
+              <p className="mt-4 flex items-center gap-2 font-display text-base font-semibold text-navy-foreground">
+                <MessageCircle className="h-4 w-4 text-signal" /> WhatsApp
+              </p>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-1 text-sm text-signal hover:underline"
+              >
+                Chat on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
-        <ContactForm />
       </div>
     </section>
   );
 }
 
 function Footer() {
-  const cols: [string, string[]][] = [
-    ["Services", ["Custom Development", "Integrations", "Modernization", "Support"]],
-    ["Solutions", ["TMS", "Fleet Management", "WMS", "Logistics ERP"]],
-    ["Industries", ["Freight & Cargo", "Courier", "Warehousing", "Supply Chain"]],
-    ["Company", ["About Us", "Our Work", "Contact"]],
+  const cols: [string, { label: string; href: string }[]][] = [
+    [
+      "Services",
+      [
+        { label: "Custom Development", href: CONTACT_PAGE },
+        { label: "Integrations", href: CONTACT_PAGE },
+        { label: "Modernization", href: CONTACT_PAGE },
+        { label: "Support", href: CONTACT_PAGE },
+      ],
+    ],
+    [
+      "Solutions",
+      [
+        { label: "TMS", href: CONTACT_PAGE },
+        { label: "Fleet Management", href: CONTACT_PAGE },
+        { label: "WMS", href: CONTACT_PAGE },
+        { label: "Logistics ERP", href: CONTACT_PAGE },
+      ],
+    ],
+    [
+      "Industries",
+      [
+        { label: "Freight & Cargo", href: CONTACT_PAGE },
+        { label: "Courier", href: CONTACT_PAGE },
+        { label: "Warehousing", href: CONTACT_PAGE },
+        { label: "Supply Chain", href: CONTACT_PAGE },
+      ],
+    ],
+    [
+      "Company",
+      [
+        { label: "About Us", href: ABOUT_PAGE },
+        { label: "Our Work", href: PORTFOLIO_PAGE },
+        { label: "Contact", href: CONTACT_PAGE },
+      ],
+    ],
   ];
   return (
     <footer className="bg-navy text-navy-foreground">
@@ -776,10 +830,12 @@ function Footer() {
         <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-navy-border p-6 sm:flex-row sm:items-center">
           <p className="font-display text-xl font-semibold">Ready to map out your project?</p>
           <a
-            href="#contact"
+            href={CONTACT_PAGE}
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-signal px-5 py-3 text-sm font-semibold text-signal-foreground"
           >
-            Schedule a Consultation <ArrowRight className="h-4 w-4" />
+            Ask for a walkthrough <ArrowRight className="h-4 w-4" />
           </a>
         </div>
         <div className="mt-14 grid gap-10 md:grid-cols-6">
@@ -789,25 +845,36 @@ function Footer() {
               Custom software for logistics, transportation, freight, fleet and supply chain
               businesses.
             </p>
-            <a
-              href="#"
-              aria-label="LinkedIn"
-              className="mt-5 inline-grid h-9 w-9 place-items-center rounded-lg border border-navy-border hover:border-signal"
-            >
-              <Linkedin className="h-4 w-4" />
-            </a>
+            <div className="mt-5 space-y-2 text-sm text-navy-muted">
+              <a href={`tel:${CONTACT_PHONE_TEL}`} className="block hover:text-signal">
+                {CONTACT_PHONE}
+              </a>
+              <a
+                href={CONTACT_WEB}
+                target="_blank"
+                rel="noreferrer"
+                className="block hover:text-signal"
+              >
+                eazisols.com
+              </a>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="block hover:text-signal">
+                {CONTACT_EMAIL}
+              </a>
+            </div>
           </div>
           {cols.map(([h, items]) => (
             <div key={h}>
               <p className="text-sm font-semibold">{h}</p>
               <ul className="mt-4 space-y-2">
                 {items.map((i) => (
-                  <li key={i}>
+                  <li key={i.label}>
                     <a
-                      href="#contact"
+                      href={i.href}
+                      target={i.href.startsWith("http") ? "_blank" : undefined}
+                      rel={i.href.startsWith("http") ? "noreferrer" : undefined}
                       className="text-sm text-navy-muted hover:text-navy-foreground"
                     >
-                      {i}
+                      {i.label}
                     </a>
                   </li>
                 ))}
@@ -816,7 +883,7 @@ function Footer() {
           ))}
         </div>
         <p className="mt-14 border-t border-navy-border pt-6 text-xs text-navy-muted">
-          © {new Date().getFullYear()} Movara. All rights reserved.
+          © {new Date().getFullYear()} Movara · Built by Eazisols. All rights reserved.
         </p>
       </div>
     </footer>
@@ -830,6 +897,7 @@ function Index() {
       <main>
         <Hero />
         <Problem />
+        <FeatureShowcase />
         <AgentDemo />
         <ShipmentShowcase />
         <Solutions />
@@ -840,7 +908,6 @@ function Index() {
         <Integrations />
         <Industries />
         <Work />
-        <FAQ />
         <CTA />
       </main>
       <Footer />
